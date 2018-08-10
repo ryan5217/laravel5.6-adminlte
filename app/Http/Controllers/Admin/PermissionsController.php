@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 class PermissionsController extends Controller
 {
@@ -64,13 +65,31 @@ class PermissionsController extends Controller
      */
     public function store(Request $request,$pid=0)
     {
+        // 验证参数
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'display_name' => 'required'
+        ],[
+            'name.required' => '请输入权限规则',
+            'display_name.required' => '请输入权限名'
+        ]);
+
+        if ($validator->fails()){
+//            $errors = $validator->errors()->toArray();
+//            $data = [];
+//            foreach ($errors as $key => $value) {
+//                $data[$key] = $value['0'];
+//            }
+//            return api_data(1,'errors',$data);
+            return back()->withErrors($validator)->withInput();
+        }
+
         // dd($request->toArray());
         $permission = new Permission();
         foreach (array_keys($this->fields) as $field) {
             $permission->$field = trim($request->get($field));
         }
         $permission->pid = (int)$pid;
-        $permission->guard_name = 'admin';
         $permission->save();
         // Event::fire(new permChangeEvent());
         return redirect('/admin/permissions/index')->withSuccess('添加成功！');
@@ -128,6 +147,25 @@ class PermissionsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // 验证参数
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'display_name' => 'required'
+        ],[
+            'name.required' => '请输入权限规则',
+            'display_name.required' => '请输入权限名'
+        ]);
+
+        if ($validator->fails()){
+//            $errors = $validator->errors()->toArray();
+//            $data = [];
+//            foreach ($errors as $key => $value) {
+//                $data[$key] = $value['0'];
+//            }
+//            return api_data(1,'errors',$data);
+            return back()->withErrors($validator)->withInput();
+        }
+
         $permission = Permission::find($id);
         foreach (array_keys($this->fields) as $field) {
             $permission->$field = trim($request->get($field));

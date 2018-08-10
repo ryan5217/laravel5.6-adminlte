@@ -85,7 +85,7 @@ class RolesController extends Controller
         foreach (array_keys($this->fields) as $field) {
             $roles->$field = trim($request->get($field));
         }
-        $roles->guard_name = 'admin';
+//        $roles->guard_name = 'admin';
         $roles->save();
 
         $permissions = $request['permissions'];
@@ -151,7 +151,7 @@ class RolesController extends Controller
         foreach (array_keys($this->fields) as $field) {
             $role->$field = trim($request->get($field));
         }
-        $role->guard_name = 'admin';
+//        $role->guard_name = 'admin';
         $role->save();
 
         $p_all = Permission::all(); //获取所有权限

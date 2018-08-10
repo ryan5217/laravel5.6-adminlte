@@ -28,7 +28,6 @@ class Menu
 
     public function setMenu()
     {
-//        dd(URL::route('admin.roles.index'));
 //        //查找并拼接出地址的别名值
         $path_arr = explode('/', \URL::getRequest()->path());
         if (isset($path_arr[1])) {
@@ -38,8 +37,6 @@ class Menu
         }
 
         $user = Auth::user();
-
-        $permissions_all = $user->getAllPermissions() -> groupBy('pid') ->toArray();
 
         if ($user->id === 1){
             $permissions_all = Permission::get() -> groupBy('pid') ->toArray();

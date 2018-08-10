@@ -104,6 +104,9 @@
                         <a href="{{$v['url']}}">
                             <i class="fa fa-fw {{$v['icon']}}"></i>
                             <span>{{$v['display_name']}}</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
                         </a>
                         <ul class="treeview-menu">
                             @foreach($v['list'] as $vv)

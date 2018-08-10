@@ -3,7 +3,7 @@
 Auth::routes();
 
 Route::group(['namespace'=>'Admin','middleware' => ['auth','menu','permission']],function(){
-    Route::get('/', 'IndexController@index');
+    Route::get('/', 'IndexController@index') -> name('admin.index');
 
     Route::group(['prefix'=>'permissions'],function(){
         Route::any('index/{pid?}','PermissionsController@index') -> name('admin.permissions.index');

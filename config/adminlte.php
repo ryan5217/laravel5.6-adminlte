@@ -113,7 +113,7 @@ return [
     */
 
     'menu' => [
-//        'MAIN NAVIGATION',
+        'MAIN NAVIGATION',
 //        [
 //            'text' => 'Blog',
 //            'url'  => 'admin/blog',
